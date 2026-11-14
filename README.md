@@ -44,7 +44,7 @@ when it isn't sure.
 
 | Tool | Install |
 |---|---|
-| **Claude Code** | `/plugin marketplace add itential/studio-builder` then `/plugin install studio-builder@studio-builder` |
+| **Claude Code** | `/plugin marketplace add itential/studio-builder-skill` then `/plugin install studio-builder@studio-builder` |
 | **Claude Code (manual)** | Copy `skills/studio-builder/` to `~/.claude/skills/` |
 | **claude.ai** | Zip `skills/studio-builder/`, then **Settings → Capabilities → Skills → Upload** |
 

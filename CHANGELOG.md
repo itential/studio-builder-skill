@@ -4,6 +4,13 @@ Versions match the plugin manifest version (`.claude-plugin/plugin.json`) and th
 
 ## Unreleased
 
+## 0.3.0
+
+- Rewrote `SKILL.md` as phases with outcomes: Discover, Choose tasks, Plan, Create, Add tasks, Wire, Fill inputs, Save, Prove, Parent, Report.
+- Native tasks first: added `app-map.md` (which app does what, with search words) and a pick order (native task → adapter → gateway service → `runCode` / `sendCommand`).
+- Added `platform-summary.md`: a read-only snippet that lists this platform's tasks by app, adapters, integrations, gateway clusters, inventories and projects, so the build uses what's actually there instead of a fixed list.
+- Rewrote `finding-tasks.md` and `canvas-actions.md` from a live build: Blank Project template, opening the Workflow card, tasks land to the right so drag them into the column, build in run order, deleting and connecting links, code editors that auto-close brackets, `runCode` timeout defaulting to 1 second and testing scripts in the editor.
+
 ## 0.2.1
 
 - Fixed workflows coming out horizontal: Studio places each `⇧T` task to the right, so the skill now moves every new task into the column below the last one as it builds, looks for a toolbar auto-layout first, and checks the whole workflow reads top to bottom before saving.

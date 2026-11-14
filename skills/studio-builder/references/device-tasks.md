@@ -5,6 +5,8 @@ Itential Automation Gateway 5 against nodes in an inventory.
 
 ## Pick the task
 
+Check for a native task first: backups, device config and compliance are **ConfigurationManager** tasks (e.g. **Back Up Device**); pass/fail checks are **MOP** command templates. Use the GatewayManager tasks below when nothing native fits.
+
 | Need | Task | Key inputs | Output |
 |---|---|---|---|
 | Run show commands | `sendCommand` | Cluster, `commands` (list), `inventory` | `result.results[]`: one `{name, command, output, success}` per node and command |

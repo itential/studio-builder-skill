@@ -25,7 +25,14 @@ Use `childJob` for that.
 ## Add it on the canvas
 
 1. Select the upstream task → `⇧T` → type `runCode` → pick the **GatewayManager** entry → `Enter`.
-2. `Enter` to open it and fill:
+2. `Enter` to open it. Pick the cluster, then **Open Editor** for the code. In the editor:
+   - write the script (it's an Ace editor: it adds closing brackets and quotes itself);
+   - set **Timeout** to 30;
+   - **Inputs** tab: sample data → **Run**. It runs on the gateway without running the workflow. Check **Outputs**;
+   - **Save**, then **Close**.
+3. Back in the panel, **+ Add Input Data Key** for each input. New keys appear at the top as `input_N`: click the name to rename it. Choosing source **Job** creates a job variable with the same name.
+
+Fields:
 
 | Field | Value |
 |---|---|
@@ -33,10 +40,10 @@ Use `childJob` for that.
 | Language | `python` |
 | Code | The script (below) |
 | Data | One key per input, each pointing at a task output or job variable |
-| Timeout | Seconds, 1–1000 (start with 60) |
+| Timeout | Seconds, 1–1000. **Defaults to 1 second**: set 30. |
 | Packages | Optional pip packages, e.g. `requests==2.31.0`. Leave empty if not needed. |
 
-3. `Esc`, `⌘S`.
+Then close the panel and `⌘S`.
 
 ## Script shape
 

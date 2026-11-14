@@ -1,27 +1,25 @@
 # Finding Tasks
 
-Screenshot after every search to confirm what you picked.
+## The task palette
+- Opens with `⇧T`, or automatically when a new workflow is created.
+- **Tasks** tab: every task, grouped by app. **Assets** tab: workflows and templates in reach
+  (use it to add a child workflow).
+- The filter matches **display names and method names**: `sendCommand` finds "Send Command"
+  (GatewayManager) and "Netmiko Send Command" (AG Manager, AutomationGateway).
+- Results stay grouped by app. Read the app line under each name before picking.
+- `↓` / `↑` highlight, `Enter` adds after the selected task and connects it.
+- `⌥T` opens recent tasks.
 
-## Add a new task: Task Palette
-1. Select the task the new one goes after.
-2. `⇧T` opens the palette.
-3. Type a keyword: the task name (`merge`, `childJob`), the action (`create change`, `get devices`) or the system (`servicenow`, `netbox`).
-4. `↓` / `↑` to the right entry. Check its source on the screenshot: the adapter or application name shown with the task.
-5. `Enter` adds it after the selected task and connects them.
+## Search in this order
+1. **Intent word:** `backup`, `compliance`, `render`, `ticket`.
+2. **App name** from `app-map.md`, to see everything that app offers.
+3. **Method name** from the platform summary.
 
-The palette lists **assets** too (workflows, templates). Pick a workflow there to call it as a child.
+## Picking between matches
+- Prefer the app `app-map.md` names for the job. Avoid AG Manager / AutomationGateway (Gateway 4).
+- For adapters, pick the instance for this environment (lab while building).
+- Nothing matches after three searches: the adapter or integration isn't installed. Stop and say which.
 
-## Reuse a task you just used
-`⌥T` opens Recent Tasks.
-
-## Find a task already on the canvas
-`Q` (or `⌘F`) → type the task name or summary → `Enter`.
-
-## See where a variable or task is used
-Select the task → `R` (View References).
-
-## Search tips
-- Search the **action** first. Many systems have similar task names; the source name tells you which one.
-- If two entries match, pick the one whose source matches the system in the request. Prefer lab or sandbox instances.
-- If nothing matches, try other keywords (action, system, synonyms). If the task truly doesn't exist, the adapter or integration isn't installed: stop and say which one is missing.
-- Look for a purpose-built task before building logic yourself. A filtered get task beats fetching everything and filtering.
+## Already on the canvas
+- `Q` → name → `Enter` selects a task.
+- `R` shows where a task's output is used.

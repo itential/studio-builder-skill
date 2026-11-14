@@ -2,6 +2,9 @@
 
 How to structure workflows well.
 
+## Native tasks first
+Use the platform's own task for the job before building one: ConfigurationManager for backups and compliance, MOP for checks, TemplateBuilder for rendering, the adapter for an external system. See `app-map.md`.
+
 ## 0. Keep it small
 Fewer tasks are easier to read, run and debug. Before adding a task, ask:
 - Can `runCode` do this along with the step before or after it?
@@ -12,6 +15,7 @@ A typical child workflow: **get data → runCode → act → error path**. Aim f
 
 | Instead of | Use |
 |---|---|
+| Building a job a native task already does | The native task |
 | `query` → `merge` → `newVariable` chains | One `runCode` |
 | A `query` task to pull one value | Enable Query on the field that needs it |
 | `forEach` + per-item tasks | `runCode` (data only) or `childJob` loop (calls per item) |

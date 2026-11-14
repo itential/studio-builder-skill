@@ -117,10 +117,10 @@ Add tasks **in run order**, top to bottom:
 1. Select the last task in the column (START first).
 2. `⇧T` → type a search word → `↓` to the right entry → `Enter`. The task is added to the right and connected.
 3. **Drag** the new task to just below the previous one. It snaps into line.
-4. Repeat from the new task.
+4. **Click it again** (a drag leaves nothing selected), then repeat from step 2.
 
 Adding from a task that already links onward makes a parallel branch, so don't insert in the middle.
-Add the status tasks (**Set status: success**, **Set status: error**) at the end.
+Add the status tasks (**Set status: success**, **Set status: error**) at the end. For the error one: add it from the task that can fail, then click its new link and press `E`. Drag END up under the column.
 
 **Outcome:** every task on the canvas in one column, in run order.
 
@@ -131,7 +131,7 @@ Add the status tasks (**Set status: success**, **Set status: error**) at the end
 - A task can't link twice to the same target. Error paths go to **Set status: error**, never straight to END.
 - Both status tasks link to END.
 
-How: select source → shift-click target → `C` → `S` / `E` / `F`. Delete a link: click the line, `Delete`.
+How: select source → shift-click target → `C` (success). Change a link's type: click it → `E` / `F`. Delete: click it → `Delete`.
 
 **Outcome:** every path ends at END; no task without an error path.
 
@@ -140,6 +140,7 @@ How: select source → shift-click target → `C` → `S` / `E` / `F`. Delete a 
 Open each task (`Enter`). For each input pick **Static**, **Job** or **Task** (`variables.md`).
 - Job only for workflow inputs and outputs. Internal values come from the task that made them.
 - Pick from dropdowns where they exist (cluster, adapter instance, workflow).
+- Workflow outputs: on the task's **Output** tab, tick **Store Output as Job Variable** and name it.
 - Code and JSON fields are editors that add closing brackets and quotes themselves (`canvas-actions.md`).
 
 **Outcome:** every required input set; nothing left on a default you didn't choose.
@@ -153,7 +154,7 @@ Open each task (`Enter`). For each input pick **Static**, **Job** or **Task** (`
 
 ## 8. Prove
 
-`⇧R`, lab inputs, start. A `complete` job isn't proof. Open each key task and check:
+`⇧R`, lab inputs, **Run**. The job opens in Operations Manager; read the **Job Variables** tab. A `complete` job isn't proof. Check:
 - native and adapter tasks: real data, no error body, nothing empty where data was expected;
 - `runCode`: `return_code` 0, empty `stderr`;
 - device tasks: `success` on every node;
@@ -165,9 +166,9 @@ On failure: `⇧D` debug mode, open the failing task, read its inputs and output
 
 ## 9. Parent
 
-For many items, build a parent: `childJob` → the tested child, `data_array` of items,
-loop type `sequential` or `parallel`. Each item holds every input the child needs.
-Never `forEach`. Prove the parent the same way.
+For many items, build a parent: `childJob` → pick the child ("… from <Project>") → **Enable Looping** →
+**Sequential** or **Parallel** → Loop Array from a Job variable (e.g. `devices`). Each item holds every
+input the child needs. Never `forEach`. Prove it by opening each child job's Job Variables.
 
 **Outcome:** parent tested over at least two items.
 

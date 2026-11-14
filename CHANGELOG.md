@@ -4,6 +4,11 @@ Versions match the plugin manifest version (`.claude-plugin/plugin.json`) and th
 
 ## Unreleased
 
+## 0.3.1
+
+- From a full live build (Device Backup with ConfigurationManager **Back Up Device**, child + sequential parent, both proven): click a task again after dragging before adding the next; change a link's type by clicking it and pressing `E` / `F`; drag END up; rename job variables with the pencil; keep outputs with **Store Output as Job Variable**; `childJob` picker shows the project copy as "… from <Project>", **Enable Looping** sets Sequential/Parallel and the loop array; run results are on the Operations Manager **Job Variables** tab.
+- Platform summary now separates app tasks from adapter tasks (adapters are grouped by instance name).
+
 ## 0.3.0
 
 - Rewrote `SKILL.md` as phases with outcomes: Discover, Choose tasks, Plan, Create, Add tasks, Wire, Fill inputs, Save, Prove, Parent, Report.

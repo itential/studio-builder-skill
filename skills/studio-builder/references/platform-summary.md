@@ -17,12 +17,16 @@ const [tasks, apps, adapters, integrations, gateways, inventories, projects] = a
   get('/automation-studio/projects?limit=100'),
 ]);
 
-const byApp = {};
-for (const t of list(tasks)) (byApp[t.app] ||= []).push(t.name);
+const byApp = {}, byAdapter = {};
+for (const t of list(tasks)) {
+  const m = t.location === 'Adapter' ? byAdapter : byApp;
+  (m[t.app] ||= []).push(t.name);
+}
 
 ({
   tasksByApp: Object.fromEntries(Object.entries(byApp).sort((a, b) => b[1].length - a[1].length)
     .map(([app, names]) => [app, names.length > 40 ? `${names.length} tasks` : names.sort()])),
+  adapterInstances: Object.fromEntries(Object.entries(byAdapter).map(([a, n]) => [a, n.length])),
   runningApps: list(apps).map(a => a.id || a.name),
   adapters: list(adapters).map(a => `${a.id} (${a.package_id || ''}) ${a.state || a.connection?.state || ''}`),
   integrations: list(integrations).map(i => i.name || i.id),
@@ -33,8 +37,9 @@ for (const t of list(tasks)) (byApp[t.app] ||= []).push(t.name);
 ```
 
 **Read the result:**
-- `tasksByApp`: every task in the palette, grouped by app. Large apps show a count; search the
-  palette or filter `tasks` for the step you need (e.g. names containing `backup`).
+- `tasksByApp`: platform app tasks (ConfigurationManager, MOP, GatewayManager…). Large apps show a count;
+  filter for the step you need (below).
+- `adapterInstances`: adapter tasks are grouped by **instance name** (`servicenow-prod`, `netbox-lab`), with a task count each.
 - `adapters` / `integrations`: the external systems you can call, with instance names.
 - `gatewayClusters` / `inventories`: what device tasks can target. Empty inventories means
   GatewayManager device tasks have nothing to run against yet.

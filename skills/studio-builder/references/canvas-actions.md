@@ -14,13 +14,16 @@ Measured on Automation Studio. Screenshot before and after each action.
 |---|---|
 | Add after a task | Select it → `⇧T` → search → `↓` → `Enter`. Lands to the **right**, connected with success. |
 | Put it in the column | **Drag** it below the previous task. One drag; it snaps into line. (`⇧` + arrows moves only ~8px a press.) |
+| Next task | **Click the task again** after a drag, then `⇧T`. Without a selected task the new one isn't connected. |
+| END | Starts far down the canvas. Drag it up under the last task. |
 | Insert in the middle | Don't. Adding from a task that already links onward adds a parallel branch. Build in run order. |
 | Spacing | Toolbar **Spread Tasks** slider. It changes spacing only; there's no auto-layout. |
 
 ## Links
 | Action | How |
 |---|---|
-| Connect two tasks | Click source → shift-click target → `C`. Default type is success; press `E` / `F` while connecting for error / failure. |
+| Connect two tasks | Click source → shift-click target → `C`. The link is success. |
+| Change a link's type | Click the line → `E` (error, turns red) / `F` (failure) / `S` (success). |
 | Delete a link | Click the line → `Delete`. If two lines overlap, drag one task aside first, then drag it back. |
 | Delete & Merge (`⇧⌫`), Detach & Merge (`⌥⇧⌫`) | Only work when the task has exactly one link in and one out, of the same type. |
 | Right-click menu (`⇧F10`) | Copy, Delete, View References, View Task Details, Zoom To Selection. No link actions. |
@@ -31,7 +34,17 @@ Measured on Automation Studio. Screenshot before and after each action.
 | Open / close | Select → `Enter` (or double-click) / the panel's ✕ |
 | Inputs | Each has **Static / Job / Task**. Dropdowns appear for clusters, adapter instances and workflows. |
 | JSON and list fields | Code editors (Ace). They add closing `]`, `}` and `"` as you type: type the opening half only, or check and delete the extra character. |
-| Summary and description | **Details** tab. Rename tasks to say what they do. |
+| Job variable names | Choosing **Job** fills in a name (often the input's own name). Rename: pencil → type → ✓. |
+| Keep a task's output | **Output** tab → tick **Store Output as Job Variable** → `+` → name it → ✓. Use this for workflow outputs. |
+| `newVariable` | **name** → Value; **value** → Variable Type (e.g. String) → Value. |
+| Description | **Details** tab (description only; the task title isn't editable there). |
+
+## Child workflows (`childJob`)
+| Action | How |
+|---|---|
+| Add | Tasks tab → `childJob`. (Dragging from the **Assets** tab doesn't work for automation, and the keyboard can't pick there.) |
+| Pick the child | **Workflow** dropdown → type to filter. The project's copy reads "<name> **from <Project>**"; pick that one. Its inputs appear below. |
+| Loop | **Enable Looping** → Loop Type value **Sequential** (default) or **Parallel** → Loop Array source **Job** → rename the variable (e.g. `devices`). The Static template shows the shape: one object per item with the child's inputs. |
 
 ## Save and check
 | Action | How |
@@ -39,6 +52,13 @@ Measured on Automation Studio. Screenshot before and after each action.
 | Save | `⌘S` |
 | Validation | Icon in the top bar, next to Save. Open it to read errors and warnings. |
 | Check the whole flow | `9` zoom to fit → screenshot |
+
+## Run and read results
+| Action | How |
+|---|---|
+| Run | `⇧R` → the dialog lists the workflow's inputs as JSON (a code editor) → fill → **Run**. The job opens in a new Operations Manager tab. |
+| Read results | Job page → **Job Variables** tab → JSON view. Task list shows each task's status. |
+| Child runs | Each child job says "Initiated by Job …" and has a **Job Loop** picker for iterations. |
 
 ## Read back what was saved (optional)
 If the JavaScript tool is available, read the saved workflow to confirm tasks and links:

@@ -2,11 +2,12 @@
 
 [![License](https://img.shields.io/badge/License-GPL--3.0-blue.svg)](LICENSE)
 
-A Claude skill that builds Itential workflows on the **Automation Studio canvas**, in your
-browser, while you watch.
+Describe the automation. Studio Builder plans it, builds it in Automation Studio, tests it,
+and hands back a working workflow.
 
-It plans first, works keyboard-first, takes a screenshot after every step, and asks
-when it isn't sure.
+It works in the Studio session you already have open: no API keys, no export and import.
+Every task, transition and input it sets is on the canvas, where you can change it or
+take over at any point.
 
 ---
 
@@ -34,7 +35,7 @@ when it isn't sure.
 
 ## Prerequisites
 
-- Chrome with the **Claude in Chrome** extension, connected to Claude Code.
+- Chrome with the **Claude in Chrome** extension (side panel), or Claude Code connected to it.
 - A logged-in Itential Platform session with access to the target project.
 - For device work: a Gateway 5 cluster and an inventory.
 
@@ -65,7 +66,7 @@ Uploaded zips don't update themselves. Re-upload after every release.
 ## How to use it
 
 1. Open the project or workflow in Automation Studio in Chrome.
-2. In Claude Code, ask, for example:
+2. Open the Claude side panel (or Claude Code) and ask, for example:
    - "Build a workflow that runs `show version` on a list of devices and shows the results."
    - "Add an approval step before the config push in this workflow."
    - "This workflow fails at the NetBox task. Debug it."

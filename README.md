@@ -44,7 +44,7 @@ Start a new chat after installing.
 | Installed via | Update |
 |---|---|
 | **Claude Code plugin** | `/plugin marketplace update studio-builder`, then restart Claude Code |
-| **Claude in Chrome / claude.ai** | Download `studio-builder.zip` from the [latest release](https://github.com/itential/studio-builder-skill/releases/latest). In **Settings → Capabilities → Skills**, remove the old `studio-builder` and upload the new zip. Open a new chat. |
+| **Claude in Chrome / claude.ai** | Download **[studio-builder.zip](https://github.com/itential/studio-builder-skill/releases/latest/download/studio-builder.zip)**. In **Settings → Capabilities → Skills**, remove the old `studio-builder` and upload the new zip. Open a new chat. |
 
 Uploaded zips don't update themselves. Re-upload after every release.
 

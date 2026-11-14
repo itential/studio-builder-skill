@@ -34,7 +34,7 @@ take over at any point.
 
 | Tool | Install |
 |---|---|
-| **Claude in Chrome / claude.ai** | Download `studio-builder.zip` from the [latest release](https://github.com/itential/studio-builder-skill/releases/latest), then **Settings → Capabilities → Skills → Upload** |
+| **Claude in Chrome / claude.ai** | Download **[studio-builder.zip](https://github.com/itential/studio-builder-skill/releases/latest/download/studio-builder.zip)**, then **Settings → Capabilities → Skills → Upload**. Don't use GitHub's **Code → Download ZIP**; that's the whole repo, not the skill. |
 | **Claude Code** | `/plugin marketplace add itential/studio-builder-skill` then `/plugin install studio-builder@studio-builder` |
 
 Start a new chat after installing.

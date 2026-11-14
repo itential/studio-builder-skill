@@ -1,0 +1,33 @@
+{
+  "name": "studio-builder",
+  "owner": {
+    "name": "Itential",
+    "email": "support@itential.com"
+  },
+  "metadata": {
+    "description": "Build Itential workflows on the Automation Studio canvas through Claude in Chrome — plan first, keyboard first, verified by screenshot.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "studio-builder",
+      "source": "./",
+      "description": "Build, edit, test and debug Itential workflows by driving the Automation Studio canvas in the browser, keyboard-first, while the engineer watches.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Itential"
+      },
+      "homepage": "https://github.com/itential/studio-builder",
+      "repository": "https://github.com/itential/studio-builder",
+      "license": "GPL-3.0-or-later",
+      "keywords": [
+        "itential",
+        "automation-studio",
+        "workflow",
+        "claude-in-chrome",
+        "network-automation"
+      ],
+      "category": "automation"
+    }
+  ]
+}

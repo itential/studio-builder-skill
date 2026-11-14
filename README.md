@@ -46,11 +46,19 @@ when it isn't sure.
 |---|---|
 | **Claude Code** | `/plugin marketplace add itential/studio-builder-skill` then `/plugin install studio-builder@studio-builder` |
 | **Claude Code (manual)** | Copy `skills/studio-builder/` to `~/.claude/skills/` |
-| **claude.ai** | Zip `skills/studio-builder/`, then **Settings → Capabilities → Skills → Upload** |
+| **claude.ai / Claude in Chrome** | Download `studio-builder.zip` from the [latest release](https://github.com/itential/studio-builder-skill/releases/latest), then **Settings → Capabilities → Skills → Upload** |
 
 Check it worked: start a new session and type `/studio-builder`.
 
-Update: `/plugin marketplace update studio-builder`.
+### Update
+
+| Installed via | Update |
+|---|---|
+| **Claude Code plugin** | `/plugin marketplace update studio-builder`, then restart Claude Code |
+| **Claude Code (manual)** | `git pull` this repo and copy `skills/studio-builder/` over `~/.claude/skills/studio-builder/` |
+| **claude.ai / Claude in Chrome** | Download `studio-builder.zip` from the [latest release](https://github.com/itential/studio-builder-skill/releases/latest). In **Settings → Capabilities → Skills**, remove the old `studio-builder` and upload the new zip. Open a new chat. |
+
+Uploaded zips don't update themselves. Re-upload after every release.
 
 ---
 

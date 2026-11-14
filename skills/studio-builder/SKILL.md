@@ -91,6 +91,12 @@ building (a task is missing, a field doesn't exist), stop, update the plan, and 
 
 ## 5. Operating loop
 
+**Start of every session: load the live shortcuts.**
+1. Click an empty spot on the canvas so it has focus.
+2. Press `?`. The **Keyboard Shortcuts** dialog opens with every key for this platform version.
+3. Screenshot it and compare with `references/shortcuts.md`. If a key differs, use the dialog's key and tell the engineer so the reference can be updated.
+4. Press `Esc` or click **Close**.
+
 Every action is **screenshot → act → screenshot**.
 
 1. **Screenshot.** Confirm the canvas has focus and no panel is open.
@@ -103,6 +109,7 @@ Core keys:
 - `Q` → type name → `Enter`: select a task.
 - `Enter`: open the selected task. `Esc`: close it.
 - `⌘S`: save. `9`: zoom to fit.
+- `?`: show all shortcuts.
 
 ---
 

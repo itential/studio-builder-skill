@@ -1,8 +1,11 @@
 # Studio Canvas Keyboard Shortcuts
 
-Source: the in-app "Keyboard Shortcuts" dialog (`?`). Mac keys shown; on Windows/Linux
-use Ctrl for ⌘ and Alt for ⌥. Re-open the dialog with `?` if a key stops working —
-the platform version may have changed it.
+## Get the full list from Studio
+Click the canvas, press `?`. The **Keyboard Shortcuts** dialog lists every key for the
+running platform version. It's the source of truth: if it differs from this file, use
+the dialog and update this file. Close it with `Esc` or **Close**.
+
+Mac keys shown below. On Windows/Linux use Ctrl for ⌘ and Alt for ⌥.
 
 Shortcuts only fire when the **canvas has focus**. If a task panel, search box or
 dialog is open, keys go there instead. `Esc` closes the open panel first.

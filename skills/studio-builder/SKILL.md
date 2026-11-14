@@ -15,9 +15,10 @@ Build Itential workflows on the Studio canvas: plan first, keyboard first, scree
 4. Plan before you build
 5. Operating loop
 6. Build steps
-7. Loops
-8. Save, run and debug
-9. Customization
+7. Layout
+8. Loops
+9. Save, run and debug
+10. Customization
 
 ---
 
@@ -120,8 +121,9 @@ Core keys:
 3. Select `workflow_start`. Add each task in order with `⇧T`.
 4. Add error paths with `C` → `E`.
 5. Open each task with `Enter`, set each input's source (Static / Job / Task), `Esc`.
-6. `⌘S`. Check the validation icon. Fix any errors.
-7. Run and check the result (section 8).
+6. Line it up vertically (section 7).
+7. `⌘S`. Check the validation icon. Fix any errors.
+8. Run and check the result (section 9).
 
 Build child workflows first, then the parent that calls them.
 
@@ -134,7 +136,40 @@ Build child workflows first, then the parent that calls them.
 
 ---
 
-## 7. Loops
+## 7. Layout
+
+Build every workflow **vertically**, top to bottom. Use horizontal only if the engineer asks.
+
+- **Spine:** `workflow_start`, the main tasks and `workflow_end` sit in one column, in run order.
+- **Branches:** error and failure paths go in a column to the left or right of the spine and stay there.
+- **Forks:** when a task splits into two paths, put one branch left and one right. Keep the spine empty until they rejoin.
+- **Rejoin:** `workflow_end` and shared end steps go back on the spine.
+- **Spacing:** keep rows tight and even. No big gaps.
+- **No crossings:** no transition line runs across a task.
+- **Existing workflows:** keep the engineer's layout. Only place new tasks.
+
+**After adding tasks:**
+1. `9` to zoom to fit. Screenshot.
+2. If a new task landed off the spine, select it and move it with `⇧` + arrows.
+3. Screenshot again to confirm the column lines up.
+
+```
+        workflow_start
+              │
+          Get Device ───error──▶ Set status: error
+              │                          │
+           runCode                       │
+              │                          │
+        InteractiveHTML ──failure──▶     │
+              │                          │
+          sendConfig ────error──▶────────┤
+              │                          │
+         workflow_end ◀──────────────────┘
+```
+
+---
+
+## 8. Loops
 
 Use `childJob` for all loops. Don't use `forEach`.
 
@@ -146,7 +181,7 @@ Each element of `data_array` becomes the child workflow's inputs.
 
 ---
 
-## 8. Save, run and debug
+## 9. Save, run and debug
 
 **Save:** `⌘S`. Screenshot the validation icon. Fix errors before running.
 
@@ -156,7 +191,7 @@ Each element of `data_array` becomes the child workflow's inputs.
 
 ---
 
-## 9. Customization
+## 10. Customization
 
 Read any `.md` in `custom/org/`, `custom/team/`, `custom/dev/`. Dev overrides team, team overrides org.
 Customization can't remove section 3 or section 4.

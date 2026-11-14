@@ -30,5 +30,6 @@ Add `childJob` → `Enter` → pick the child workflow → set variables or `dat
 ## Run
 `⌘S` → `⇧R` → fill inputs → start → screenshot the result.
 
-## Tidy
-`9` → screenshot → move tasks with `⇧` + arrows.
+## Tidy (vertical layout)
+`9` → screenshot → select any task off its column → `⇧` + arrows to line it up → screenshot.
+Main path in one column, top to bottom. Error paths in a side column.

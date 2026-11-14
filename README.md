@@ -76,6 +76,7 @@ Update: `/plugin marketplace update studio-builder`.
 | Keyboard first | `⇧T` adds tasks, `C` draws transitions, `Q` finds tasks |
 | Verify every step | Screenshot before and after each action |
 | Keep it small | `runCode` for data, Enable Query instead of `query` tasks, under 10 tasks per child |
+| Layout | Vertical: main path top to bottom, error paths in a side column |
 | Loops | `childJob` with loop type `sequential` or `parallel`. No `forEach`. |
 | Human steps | `InteractiveHTML` for review and input forms |
 | Device work | GatewayManager `sendCommand` / `sendConfig` |
@@ -90,7 +91,7 @@ Update: `/plugin marketplace update studio-builder`.
   marketplace.json                 marketplace manifest
   plugin.json                      plugin manifest
 skills/studio-builder/
-  SKILL.md                         what Claude follows: sections 1–9
+  SKILL.md                         what Claude follows: sections 1–10
   references/
     shortcuts.md                   Studio keyboard shortcuts
     canvas-actions.md              key sequences for common canvas actions

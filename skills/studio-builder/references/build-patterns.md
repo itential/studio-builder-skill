@@ -64,6 +64,10 @@ Each element of `data_array` becomes one child run's inputs, so each element mus
 - Add a `dryRun` input (default `true`) and skip side effects when it's set.
 - Use the lab or sandbox adapter instance while building.
 
-## 8. Name things clearly
+## 8. Lay out vertically
+- Main path top to bottom in one column. Error and failure paths in a side column.
+- No transition crossing a task. Keep the engineer's layout on existing workflows.
+
+## 9. Name things clearly
 - Workflows: `<Use case> - <Action>`, e.g. `Port Turn-Up - Push Config`.
 - Task summaries: say what the step does, e.g. `Create change ticket`, not `createChangeRequest`.

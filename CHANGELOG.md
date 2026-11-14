@@ -4,6 +4,8 @@ Versions match the plugin manifest version (`.claude-plugin/plugin.json`) and th
 
 ## Unreleased
 
+- `studio-builder` now builds workflows vertically: main path top to bottom in one column, error paths in a side column, no lines crossing tasks. New section 7 (Layout); later sections renumbered.
+
 - `studio-builder` now opens the Keyboard Shortcuts dialog (`?`) at the start of each session, checks it against `references/shortcuts.md`, and uses the dialog's keys when they differ.
 
 ## 0.1.0

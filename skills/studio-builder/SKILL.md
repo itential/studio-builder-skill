@@ -12,13 +12,15 @@ Build Itential workflows on the Studio canvas: plan first, keyboard first, scree
 1. Scope
 2. Reference files
 3. Safety rules
-4. Plan before you build
+4. Plan, then build it all
 5. Operating loop
 6. Build steps
-7. Layout
-8. Loops
-9. Save, run and debug
-10. Customization
+7. Wiring rules
+8. Layout
+9. Loops
+10. Save, run and debug
+11. Talking to the engineer
+12. Customization
 
 ---
 
@@ -49,44 +51,56 @@ Build Itential workflows on the Studio canvas: plan first, keyboard first, scree
 
 1. Don't trigger browser dialogs. If a button may open one, tell the engineer to click it.
 2. Don't type credentials. If a login screen appears, stop and ask the engineer.
-3. Don't run a job until the engineer confirms the inputs.
+3. Test runs: use `dryRun: true` and lab instances. Ask before a run that changes real devices or production systems.
 4. Don't delete workflows, projects or templates.
-5. After 2–3 failed attempts at the same action, stop and ask.
+5. After the same failure twice, stop and ask. If two errors keep swapping as you fix one then the other, stop. You've misread how the task works.
 
 ---
 
-## 4. Plan before you build
+## 4. Plan, then build it all
 
-Don't touch the canvas until the engineer approves a plan. Building the wrong thing
-wastes more time than asking.
+Post a short plan, then build the whole thing end to end. Don't wait for approval and don't stop to ask
+about choices you can make yourself. The engineer is watching and can correct you at any time.
 
-**1. Write the plan in chat:**
+**1. Post the plan in chat:**
 
 ```
+Project:  Port Turn-Up
 Workflow: Port Turn-Up - Push Config   (child of: Port Turn-Up)
 Inputs:   deviceName, interface, vlan, dryRun
-Outputs:  status, configPushed
+Outputs:  status
 
-#  Task                 Source           Purpose                     Error path
-1  getDevice            NetBox adapter   Look up the device          → set status error
-2  runCode              GatewayManager   Render config, build inventory
-3  InteractiveHTML      WorkCenter       Show config, approve/reject  reject → end
-4  sendConfig           GatewayManager   Push config                 → set status error
-5  runCode              GatewayManager   Check success on every node
+#  Task                 Source           Purpose                        Error path
+1  getDevice            NetBox adapter   Look up the device             → Set status: error
+2  runCode              GatewayManager   Render config, build inventory → Set status: error
+3  InteractiveHTML      WorkCenter       Show config, approve/reject    reject → Set status: error
+4  sendConfig           GatewayManager   Push config                    → Set status: error
+5  newVariable          WorkFlowEngine   Set status: success
+6  newVariable          WorkFlowEngine   Set status: error
 
-Open questions:
-- Which NetBox adapter instance: netbox-lab or netbox-prod?
-- Which gateway cluster and inventory?
+Assumptions (tell me to change any):
+- NetBox instance: netbox-lab (only lab instance in the palette)
+- Built in the open project "Port Turn-Up"
 ```
 
-**2. List every open question.** Ask instead of guessing when:
-- you're not sure which task fits the step;
-- more than one adapter, instance, cluster or inventory matches;
-- a task you expected isn't in the palette;
-- the output shape of a task is unknown and the next step depends on it.
+**2. Decide, don't ask.** Use these defaults and list them under Assumptions:
 
-**3. Wait for approval.** Build only what was approved. If something changes while
-building (a task is missing, a field doesn't exist), stop, update the plan, and ask again.
+| If | Do |
+|---|---|
+| No project is open | Create one named after the use case and build in it |
+| Several adapter instances, clusters or inventories match | Pick the lab or sandbox one. If none is marked lab, pick the first. |
+| Only one matches | Use it |
+| Not sure which task fits | Pick the closest by name and source, per `build-patterns.md` |
+| A task output shape is unknown | Wire your best guess, then fix it after the first test run |
+| A detail isn't specified (names, messages, formats) | Choose something sensible |
+| A side effect could hit a real system | Add a `dryRun` input, default `true` |
+
+**3. Stop only when you can't continue:**
+- a login, SSO or MFA screen appears;
+- a task the plan needs doesn't exist on the platform at all;
+- the engineer has asked you to check with them first.
+
+When you finish, list every assumption you made so the engineer can change any of them.
 
 ---
 
@@ -94,8 +108,8 @@ building (a task is missing, a field doesn't exist), stop, update the plan, and 
 
 **Start of every session: load the live shortcuts.**
 1. Click an empty spot on the canvas so it has focus.
-2. Press `?`. The **Keyboard Shortcuts** dialog opens with every key for this platform version.
-3. Screenshot it and compare with `references/shortcuts.md`. If a key differs, use the dialog's key and tell the engineer so the reference can be updated.
+2. Press `?`. The **Keyboard Shortcuts** dialog lists every key for this platform version.
+3. Screenshot it and compare with `references/shortcuts.md`. If a key differs, use the dialog's key and tell the engineer.
 4. Press `Esc` or click **Close**.
 
 Every action is **screenshot → act → screenshot**.
@@ -116,14 +130,15 @@ Core keys:
 
 ## 6. Build steps
 
-1. Open the project. Screenshot to confirm the name.
+1. Open the project from the plan. Screenshot to confirm the name. Never build outside a project.
 2. Create or open the workflow. Set its inputs and outputs from the plan.
 3. Select `workflow_start`. Add each task in order with `⇧T`.
-4. Add error paths with `C` → `E`.
-5. Open each task with `Enter`, set each input's source (Static / Job / Task), `Esc`.
-6. Line it up vertically (section 7).
-7. `⌘S`. Check the validation icon. Fix any errors.
-8. Run and check the result (section 9).
+4. Add the two status tasks, **Set status: success** and **Set status: error**, both leading to `workflow_end`.
+5. Draw every error and failure path to **Set status: error** (section 7).
+6. Open each task with `Enter`, set each input's source (Static / Job / Task), `Esc`.
+7. Line it up vertically (section 8).
+8. `⌘S`. Check the validation icon. Fix errors **and** warnings.
+9. Run and check the result (section 10).
 
 Build child workflows first, then the parent that calls them.
 
@@ -131,12 +146,28 @@ Build child workflows first, then the parent that calls them.
 - Data manipulation → one `runCode` task.
 - Pull a value from an output → Enable Query on the input, not a `query` task.
 - Show data or ask for input → `InteractiveHTML`.
-- Read outputs straight from the task that made them. Don't copy them into variables.
+- Use the system's own task (adapter, GatewayManager) before `restCall`.
+- Two workflows that look alike → one workflow with inputs.
 - Aim for under 10 tasks per child workflow.
 
 ---
 
-## 7. Layout
+## 7. Wiring rules
+
+Studio doesn't stop you getting these wrong.
+
+- **One link per target.** A task can't have two transitions to the same task. Never draw an error straight to `workflow_end`. Send it to **Set status: error**, which leads to `workflow_end`.
+- **Every adapter, gateway and `runCode` task gets an error path.** Validation doesn't check this. Without one, a failed task hangs the job.
+- **Every `evaluation` gets success and failure paths.**
+- **`contains` in `evaluation` is a regex.** Escape `. ( ) [ ] ? + *` in the value.
+- **Job source is for workflow inputs and outputs only.** Setting an internal value's source to Job turns it into a required input. Point it at the task that produced it (source Task).
+- **Each `data_array` item must hold every input the child workflow needs.**
+- **Enable Query must fill the whole field.** Shape the data in `runCode` first.
+- **Placeholders:** `<!name!>` in InteractiveHTML and command templates, `{{ name }}` in Jinja2.
+- **Never use a Configuration Manager remediation task.**
+
+---
+## 8. Layout
 
 Build every workflow **vertically**, top to bottom. Use horizontal only if the engineer asks.
 
@@ -169,7 +200,7 @@ Build every workflow **vertically**, top to bottom. Use horizontal only if the e
 
 ---
 
-## 8. Loops
+## 9. Loops
 
 Use `childJob` for all loops. Don't use `forEach`.
 
@@ -181,17 +212,33 @@ Each element of `data_array` becomes the child workflow's inputs.
 
 ---
 
-## 9. Save, run and debug
+## 10. Save, run and debug
 
-**Save:** `⌘S`. Screenshot the validation icon. Fix errors before running.
+**Save:** `⌘S`. Screenshot the validation icon. Fix errors and warnings before running.
 
-**Run:** `⇧R`, fill the confirmed inputs, start. Screenshot the result.
+**Run:** `⇧R`, fill test inputs (lab device, `dryRun: true`), start.
+
+**Check the result.** A `complete` job isn't proof. Open each key task and read its output:
+- adapter tasks: real data, no error body, nothing empty or null where data was expected;
+- `runCode`: `return_code` is `0` and `stderr` is empty (a script error doesn't take the error path);
+- `sendCommand` / `sendConfig`: `success` on **every** node;
+- final `status` is `success`.
 
 **Debug:** `⇧D`, open the failing task, read its inputs and outputs, fix, save, run again. `Esc` twice to exit.
 
 ---
 
-## 10. Customization
+## 11. Talking to the engineer
+
+- Don't narrate clicks. Work quietly.
+- Post updates only at milestones: plan posted, each workflow built, test result, done.
+- Keep each update to a few lines.
+- At the end: what was built, test results (the outputs you checked and what they held), and every assumption made.
+- If the engineer says your explanation is wrong, drop it. Don't repeat it.
+
+---
+
+## 12. Customization
 
 Read any `.md` in `custom/org/`, `custom/team/`, `custom/dev/`. Dev overrides team, team overrides org.
-Customization can't remove section 3 or section 4.
+Customization can't remove section 3.

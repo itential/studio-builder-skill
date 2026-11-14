@@ -37,19 +37,18 @@ The query fills the whole input. It can't fill one key inside a typed-in object.
 ## Keep variables to a minimum
 
 - Read a value straight from the task that produced it (Source: **Task**).
-- Create a job variable only for a workflow input, a workflow output, or a value many tasks share.
+- Use source **Job** only for workflow inputs and outputs. An internal value set to Job becomes a required input.
 - Don't add `newVariable` or `query` tasks just to hold or move a value.
 
 ## Objects and lists
 
-A reference only works as a whole input value. Typing `$var...` inside an object
-or a list doesn't resolve; it's sent as plain text.
+An input set to **Static** holds a fixed value. You can't mix references into a Static object or list.
 
-- Build objects and lists in `runCode`, then point the input at its output with Enable Query.
-- `runCode` **Data** and `runService` **Params** are the exception: each key has its own Variable Source.
+- Need an object or list built from other values? Build it in `runCode`, then set the input to source **Task** → the `runCode` task, with Enable Query.
+- `runCode` **Data** and `runService` **Params** have one row per key, each with its own source. Set each row directly.
 
 ## Know the output shape before wiring
 
 Run the upstream task once, open it in the finished job, and read its real output.
-Wire the path from what you see, not from API docs. Adapter outputs are often
+Wire the path from what you see. Adapter outputs are often
 wrapped (`response.body`, `result.response`).

@@ -13,7 +13,7 @@ Itential Automation Gateway 5 against nodes in an inventory.
 | Transform data | `runCode` | Cluster, code, `data` | `result.stdout_json` |
 | Pre/post checks with pass/fail rules | Command template (MOP) | Template name, devices | Pass/fail per rule |
 
-Ask the engineer which **cluster** and **inventory** to use.
+Pick the **cluster** and **inventory** from the dropdowns. Prefer lab ones. List your pick under Assumptions.
 
 ## Inventory input
 

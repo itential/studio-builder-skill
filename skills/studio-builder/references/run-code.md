@@ -29,7 +29,7 @@ Use `childJob` for that.
 
 | Field | Value |
 |---|---|
-| Cluster | The Gateway 5 cluster the engineer names |
+| Cluster | Pick from the dropdown. Prefer lab. |
 | Language | `python` |
 | Code | The script (below) |
 | Data | One key per input, each pointing at a task output or job variable |

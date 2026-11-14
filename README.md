@@ -61,9 +61,9 @@ Update: `/plugin marketplace update studio-builder`.
    - "Build a workflow that runs `show version` on a list of devices and shows the results."
    - "Add an approval step before the config push in this workflow."
    - "This workflow fails at the NetBox task. Debug it."
-3. Review the plan Claude posts and answer its open questions.
-4. Watch it build. Take over at any time.
-5. Confirm inputs before it runs anything.
+3. Claude posts a short plan with its assumptions, then builds the whole thing.
+4. Watch it build. Correct an assumption or take over at any time.
+5. It tests with `dryRun` and lab instances, and asks before touching production.
 
 ---
 
@@ -71,8 +71,10 @@ Update: `/plugin marketplace update studio-builder`.
 
 | Principle | In practice |
 |---|---|
-| Plan first | No canvas changes until you approve the plan |
-| Ask, don't guess | Unsure task, several matching instances, missing task, unknown output → asks |
+| Plan, then build | Posts a plan with assumptions, then builds end to end without stopping |
+| Decide, don't stop | Picks sensible defaults (lab instances, `dryRun`), lists them, keeps going |
+| Wiring | Every error path goes to a status task; `evaluation` gets success and failure |
+| Proven, not complete | Checks each task's output after a run, not just the job status |
 | Keyboard first | `⇧T` adds tasks, `C` draws transitions, `Q` finds tasks |
 | Verify every step | Screenshot before and after each action |
 | Keep it small | `runCode` for data, Enable Query instead of `query` tasks, under 10 tasks per child |
@@ -80,7 +82,7 @@ Update: `/plugin marketplace update studio-builder`.
 | Loops | `childJob` with loop type `sequential` or `parallel`. No `forEach`. |
 | Human steps | `InteractiveHTML` for review and input forms |
 | Device work | GatewayManager `sendCommand` / `sendConfig` |
-| Safety | No credentials, no deletes, no browser dialogs, no runs without your OK |
+| Safety | No credentials, no deletes, no browser dialogs, asks before touching production |
 
 ---
 
@@ -91,7 +93,7 @@ Update: `/plugin marketplace update studio-builder`.
   marketplace.json                 marketplace manifest
   plugin.json                      plugin manifest
 skills/studio-builder/
-  SKILL.md                         what Claude follows: sections 1–10
+  SKILL.md                         what Claude follows: sections 1–12
   references/
     shortcuts.md                   Studio keyboard shortcuts
     canvas-actions.md              key sequences for common canvas actions
@@ -117,7 +119,7 @@ Add `.md` files to `skills/studio-builder/custom/`:
 - `team/`: team conventions (default cluster, inventory, adapter instances).
 - `dev/`: your own preferences.
 
-Dev overrides team, team overrides org. Overrides can't remove the safety rules or the plan-first step.
+Dev overrides team, team overrides org. Overrides can't remove the safety rules.
 
 ---
 

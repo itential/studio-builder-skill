@@ -22,6 +22,6 @@ Select the task → `R` (View References).
 
 ## Search tips
 - Search the **action** first. Many systems have similar task names; the source name tells you which one.
-- If two entries match, pick the one whose source matches the engineer's system and environment.
-- If nothing matches, the adapter or integration may not be installed. Stop and tell the engineer.
+- If two entries match, pick the one whose source matches the system in the request. Prefer lab or sandbox instances.
+- If nothing matches, try other keywords (action, system, synonyms). If the task truly doesn't exist, the adapter or integration isn't installed: stop and say which one is missing.
 - Look for a purpose-built task before building logic yourself. A filtered get task beats fetching everything and filtering.

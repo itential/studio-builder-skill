@@ -17,13 +17,13 @@ What things are on the Itential Platform and how they show up on the canvas.
 
 | Source | What it is | Example tasks | How to spot it |
 |---|---|---|---|
-| **Adapter** | A connector to an external system (ServiceNow, NetBox, Infoblox, email). Installed and configured by an admin. | `createChangeRequest`, `getDevices` | Task needs an `adapter_id` |
-| **Adapter instance** | One configured connection of an adapter, e.g. `servicenow-prod`. One adapter type can have several. | — | The value you put in `adapter_id` |
+| **Adapter** | A connector to an external system (ServiceNow, NetBox, Infoblox, email). Installed and configured by an admin. | `createChangeRequest`, `getDevices` | Has an **adapter_id** dropdown in the task panel |
+| **Adapter instance** | One configured connection of an adapter, e.g. `servicenow-prod`. One adapter type can have several. | — | What you pick in the **adapter_id** dropdown |
 | **Integration** | A connector built from an OpenAPI spec inside the platform, no adapter install needed. | API operations from the spec | Named after the integration model |
-| **Application** | A built-in platform service. | `WorkFlowEngine` (merge, query, childJob, evaluation), `GatewayManager` (runCode, run services, send config), `ConfigurationManager`, `TemplateBuilder` | No `adapter_id` |
+| **Application** | A built-in platform service. | `WorkFlowEngine` (merge, query, childJob, evaluation), `GatewayManager` (runCode, run services, send config), `ConfigurationManager`, `TemplateBuilder` | No adapter_id dropdown |
 | **Gateway service** | A Python script, Ansible playbook or OpenTofu plan registered on Itential Automation Gateway. | Called with `GatewayManager` run service | You pick the service name |
 
-**Rule:** before adding an adapter or integration task, confirm with the engineer which instance to use (prod, lab, sandbox).
+**Rule:** pick the lab or sandbox instance in the adapter_id dropdown while building. List it under Assumptions.
 
 ## Other assets a workflow uses
 
@@ -37,6 +37,7 @@ What things are on the Itential Platform and how they show up on the canvas.
 
 ## Variables in one minute
 
-- **Job variables** are the workflow's inputs and anything a task writes to the job. Refer to them as `$var.job.<name>`.
-- **Task outputs** are what one task returns. Refer to them as `$var.<taskId>.<output>`.
-- To build an object from several values, use a `merge` task. To pull one value out of an object, use a `query` task.
+- **Job variables** are the workflow's inputs and outputs. In the task panel: source **Job**.
+- **Task outputs** are what one task returns. In the task panel: source **Task**, then pick the task and output.
+- To pull one value out of an output, use **Enable Query**. To build or reshape data, use `runCode`.
+- Details: `variables.md`.

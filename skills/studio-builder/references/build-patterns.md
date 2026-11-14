@@ -22,7 +22,6 @@ A typical child workflow: **get data → runCode → act → error path**. Aim f
 - Build each child so it can run and be tested on its own.
 - Build children first. The parent only calls children with `childJob`.
 - Split any workflow that grows past about 20 tasks.
-- Check whether a workflow that does the job already exists before building a new one.
 
 ## 2. Loops with childJob
 | Need | Set on childJob |
@@ -34,7 +33,8 @@ A typical child workflow: **get data → runCode → act → error path**. Aim f
 Each element of `data_array` becomes one child run's inputs, so each element must carry every input the child needs.
 
 ## 3. Handle errors
-- Give every adapter, integration and gateway task an **error** path.
+- Give every adapter, integration, gateway and `runCode` task an **error** path.
+- A task can't link twice to the same target, so never draw an error straight to `workflow_end`. Route it to a **Set status: error** task.
 - In a child workflow, set a status at the end of each path:
   ```
   task ──success──▶ set status = "success" ──▶ end
@@ -57,7 +57,7 @@ Each element of `data_array` becomes one child run's inputs, so each element mus
 1. Test the CLI commands on the device first.
 2. Command template (MOP) for pre-checks.
 3. Jinja2 template to generate the config.
-4. Push with `GatewayManager` send config (or the push workflow the engineer names).
+4. Push with `GatewayManager` `sendConfig`.
 5. Command template for post-checks.
 
 ## 7. Make it safe to test

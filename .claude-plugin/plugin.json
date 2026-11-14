@@ -1,7 +1,7 @@
 {
   "name": "studio-builder",
   "description": "Build, edit, test and debug Itential workflows by driving the Automation Studio canvas in the browser, keyboard-first, while the engineer watches.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
     "name": "Itential"
   },

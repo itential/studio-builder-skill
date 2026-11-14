@@ -4,6 +4,10 @@ Versions match the plugin manifest version (`.claude-plugin/plugin.json`) and th
 
 ## Unreleased
 
+## 0.2.1
+
+- Fixed workflows coming out horizontal: Studio places each `⇧T` task to the right, so the skill now moves every new task into the column below the last one as it builds, looks for a toolbar auto-layout first, and checks the whole workflow reads top to bottom before saving.
+
 ## 0.2.0
 
 - `studio-builder` now plans then builds end to end without stopping: it picks defaults (lab instances, `dryRun`, a new project if none is open), lists them as assumptions, and stops only for a login screen, a missing task or production runs.

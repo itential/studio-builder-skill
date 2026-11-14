@@ -132,7 +132,7 @@ Core keys:
 
 1. Open the project from the plan. Screenshot to confirm the name. Never build outside a project.
 2. Create or open the workflow. Set its inputs and outputs from the plan.
-3. Select `workflow_start`. Add each task in order with `⇧T`.
+3. Select `workflow_start`. Add each task in order with `⇧T`, moving each one into the column below the last (section 8).
 4. Add the two status tasks, **Set status: success** and **Set status: error**, both leading to `workflow_end`.
 5. Draw every error and failure path to **Set status: error** (section 7).
 6. Open each task with `Enter`, set each input's source (Static / Job / Task), `Esc`.
@@ -179,10 +179,21 @@ Build every workflow **vertically**, top to bottom. Use horizontal only if the e
 - **No crossings:** no transition line runs across a task.
 - **Existing workflows:** keep the engineer's layout. Only place new tasks.
 
-**After adding tasks:**
-1. `9` to zoom to fit. Screenshot.
-2. If a new task landed off the spine, select it and move it with `⇧` + arrows.
-3. Screenshot again to confirm the column lines up.
+**Studio places new tasks to the right.** `⇧T` puts each new task to the right of the
+selected one, so a workflow comes out horizontal unless you move every task. Do it as you go:
+
+**After every task you add (required, not optional):**
+1. The new task is selected. Press `⇧↓` to move it down below the task above it. Use the key's repeat count; start with 10 presses.
+2. Press `⇧←` until it sits in the same column as the task above it.
+3. Screenshot. Adjust with `⇧` + arrows until it's directly below, with a small even gap.
+4. Only then add the next task.
+
+**First, look for auto-layout.** Before building, hover each canvas toolbar icon and read its tooltip.
+If one arranges the workflow (layout, arrange, tidy) and offers vertical or top-to-bottom, use it
+after adding tasks instead of moving each one, then screenshot to check.
+
+**Before saving:** `9` to zoom to fit, screenshot, and check the whole workflow reads top to bottom.
+If any task is out of its column, fix it before `⌘S`. A horizontal workflow is not done.
 
 ```
         workflow_start

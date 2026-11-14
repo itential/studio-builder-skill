@@ -7,7 +7,8 @@ Screenshot before and after every action.
 
 ## Add a task after the selected task
 `⇧T` → type the task name → `↓` / `↑` to the right entry → `Enter`.
-The new task is placed after the selected one and connected.
+The new task is placed to the **right** of the selected one and connected.
+Then move it into the column: `⇧↓` (about 10 times) → `⇧←` until aligned → screenshot.
 
 ## Add an error or failure path
 Select the source task → `C` → arrows to the target → `E` or `F` → `Enter`.

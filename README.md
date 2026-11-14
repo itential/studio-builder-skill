@@ -26,7 +26,6 @@ take over at any point.
 
 - Chrome with the **Claude in Chrome** extension (side panel), or Claude Code connected to it.
 - A logged-in Itential Platform session with access to the target project.
-- For device work: a Gateway 5 cluster and an inventory.
 
 ---
 
